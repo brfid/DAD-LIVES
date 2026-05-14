@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""obey-dad — replaces blocked HTTP ads with dad wisdom via Pi-hole."""
+"""dad-lives — replaces blocked HTTP ads with dad wisdom via Pi-hole."""
 
 from __future__ import annotations
 
@@ -93,7 +93,7 @@ def next_slogan() -> str:
 app = Flask(__name__)
 
 _ADMIN_TMPL = """<!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>obey-dad</title><style>
+<html><head><meta charset="utf-8"><title>dad-lives</title><style>
 body{font-family:monospace;max-width:600px;margin:40px auto;padding:0 20px}
 h1{font-family:Impact,sans-serif;letter-spacing:.08em;font-size:2.5rem}
 .item{display:flex;align-items:center;justify-content:space-between;
@@ -108,7 +108,7 @@ button{font-family:monospace;font-size:13px;padding:4px 10px;
            padding:8px;border:2px solid #000;text-transform:uppercase}
 .add button{font-size:16px;padding:8px 16px;background:#000;color:#fff;border:2px solid #000}
 </style></head><body>
-<h1>OBEY-DAD</h1>
+<h1>DAD-LIVES</h1>
 <p>Next: <strong>{{ current }}</strong></p>
 <div>
 {% for i, s in slogans %}

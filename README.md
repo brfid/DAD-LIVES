@@ -1,4 +1,4 @@
-# obey-dad
+# dad-lives
 
 Pi-hole companion that replaces blocked HTTP ad slots with dad wisdom — inspired by [They Live](https://en.wikipedia.org/wiki/They_Live).
 
@@ -34,16 +34,16 @@ Pi-hole admin UI moves to `http://<pi-ip>:8090/admin`.
 ### 2. Install the server
 
 ```bash
-git clone https://github.com/brfid/obey-dad
-cd obey-dad
+git clone https://github.com/brfid/dad-lives
+cd dad-lives
 ```
 
-Edit `obey-dad.service` — replace both `/path/to/obey-dad` with your clone path, then:
+Edit `dad-lives.service` — replace both `/path/to/dad-lives` with your clone path, then:
 
 ```bash
-sudo cp obey-dad.service /etc/systemd/system/
+sudo cp dad-lives.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable --now obey-dad
+sudo systemctl enable --now dad-lives
 ```
 
 ## Slogans
