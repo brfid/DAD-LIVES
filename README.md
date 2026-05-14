@@ -52,10 +52,31 @@ Edit the `SLOGANS` list at the top of `server.py` and restart the service, or us
 
 Runtime changes are stored in `state.json` (gitignored). Delete it to reset to defaults.
 
-## Tests
+## Testing
+
+Unit tests:
 
 ```bash
 pytest test_server.py
+```
+
+Smoke-test the running server:
+
+```bash
+# HTML slot
+curl -s http://localhost/ | grep -o '<h1>[^<]*</h1>'
+
+# Image slot → SVG
+curl -s -H "Accept: image/svg+xml" http://localhost/ | grep -o '<text[^>]*>[^<]*</text>'
+
+# JS slot → empty
+curl -s -H "Accept: application/javascript" http://localhost/ad.js | wc -c
+```
+
+End-to-end — simulate a blocked ad domain hitting the Pi:
+
+```bash
+curl -s http://<blocked-domain>/banner.jpg --resolve <blocked-domain>:80:<pi-ip>
 ```
 
 ## License
