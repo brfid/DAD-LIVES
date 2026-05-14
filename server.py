@@ -67,20 +67,26 @@ def response_type(accept: str, path: str) -> str:
 _lock = threading.Lock()
 
 
+def _slogans(data: dict) -> list[str]:
+    return data.get("slogans") or list(SLOGANS)
+
+
 def _load() -> dict:
     if STATE_FILE.exists():
-        return json.loads(STATE_FILE.read_text())
+        return json.loads(STATE_FILE.read_text(encoding="utf-8"))
     return {"slogans": list(SLOGANS), "index": 0}
 
 
 def _save(data: dict) -> None:
-    STATE_FILE.write_text(json.dumps(data, indent=2))
+    tmp = STATE_FILE.with_suffix(".tmp")
+    tmp.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    tmp.rename(STATE_FILE)
 
 
 def next_slogan() -> str:
     with _lock:
         data = _load()
-        slogans = data.get("slogans") or SLOGANS
+        slogans = _slogans(data)
         idx = data.get("index", 0) % len(slogans)
         slogan = slogans[idx]
         data["index"] = (idx + 1) % len(slogans)
@@ -130,7 +136,7 @@ button{font-family:monospace;font-size:13px;padding:4px 10px;
 @app.get("/admin")
 def admin() -> str:
     data = _load()
-    slogans = data.get("slogans") or SLOGANS
+    slogans = _slogans(data)
     idx = data.get("index", 0) % len(slogans) if slogans else 0
     return render_template_string(
         _ADMIN_TMPL,
@@ -146,7 +152,7 @@ def admin_add():
     if slogan:
         with _lock:
             data = _load()
-            data.setdefault("slogans", list(SLOGANS)).append(slogan)
+            data["slogans"] = _slogans(data) + [slogan]
             _save(data)
     return redirect("/admin")
 
@@ -155,7 +161,7 @@ def admin_add():
 def admin_delete(idx: int):
     with _lock:
         data = _load()
-        slogans = data.get("slogans", list(SLOGANS))
+        slogans = _slogans(data)
         if 0 <= idx < len(slogans):
             slogans.pop(idx)
             data["slogans"] = slogans
@@ -181,7 +187,11 @@ def catch_all(path: str):
 # ── Entry point ────────────────────────────────────────────────────────────────
 
 def main() -> None:
-    app.run(host="0.0.0.0", port=PORT, threaded=True)
+    import argparse
+    parser = argparse.ArgumentParser(description="DAD-LIVES ad replacement server")
+    parser.add_argument("--port", type=int, default=PORT, help=f"port to listen on (default: {PORT})")
+    args = parser.parse_args()
+    app.run(host="0.0.0.0", port=args.port, threaded=True)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,12 @@
+[project]
+name = "dad-lives"
+version = "0.1.0"
+requires-python = ">=3.9"
+dependencies = ["flask"]
+
+[project.scripts]
+dad-lives = "server:main"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.backends.legacy:build"
