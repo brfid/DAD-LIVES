@@ -1,6 +1,6 @@
 # DAD-LIVES
 
-Pi-hole companion that replaces blocked HTTP ad slots with dad wisdom — inspired by [They Live](https://en.wikipedia.org/wiki/They_Live).
+Pi-hole companion that replaces blocked HTTP ad slots with dad wisdom — inspired by [they_live_adblocker](https://github.com/davmlaw/they_live_adblocker).
 
 When Pi-hole blocks an ad domain and redirects the request to your Pi's IP, this server intercepts it and returns a stark black-and-white SVG or HTML page with a slogan. Works best on smart TVs, streaming sticks, and older apps that still fetch ads over HTTP.
 
