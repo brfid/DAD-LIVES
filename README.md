@@ -1,4 +1,4 @@
-# dad-lives
+# DAD-LIVES
 
 Pi-hole companion that replaces blocked HTTP ad slots with dad wisdom — inspired by [They Live](https://en.wikipedia.org/wiki/They_Live).
 
@@ -34,7 +34,7 @@ Pi-hole admin UI moves to `http://<pi-ip>:8090/admin`.
 ### 2. Install the server
 
 ```bash
-git clone https://github.com/brfid/dad-lives
+git clone https://github.com/brfid/DAD-LIVES
 cd dad-lives
 ```
 
